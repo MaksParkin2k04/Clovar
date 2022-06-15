@@ -7,18 +7,23 @@ def z2():
                     F = not (x <= z) or (y == w) or not (y)
                     if not (F):
                         print(x, z, y, w)
+
+
 '''Подбираем print по таблице'''
+
 
 def z5():
     for N in range(516):
         b = f'{N:b}'
         if N % 2 == 0:
-            b +='10'
+            b += '10'
         else:
-            b = '1' + b +'01'
-        if int(b,2) > 516:
+            b = '1' + b + '01'
+        if int(b, 2) > 516:
             print(N)
             break
+
+
 def z6():
     for x in range(10000):
         s = x
@@ -31,17 +36,30 @@ def z6():
             print(x)
             break
 
+
 def z8():
     '''позже'''
+    cnt = 0
+    srt = 'АОУ'  # строка(чтобы не мучаться)
+    for a in srt:  # циклы для всего что есть(Жаль нельзя зациклировать процессы жизни чтобы жить вcегда)
+        for b in srt:
+            for c in srt:
+                for d in srt:
+                    for x in srt:
+                        for n in srt:
+                            word = a + b + c + d + x + n
+                            cnt += 1  # счетчик
+                            print(cnt, word)
 
 def z12():
-    s ='8'*86
+    s = '8' * 86
     while '1111' in s or '8888' in s:
         if '1111' in s:
-            s = s.replace('1111','8', 1)
+            s = s.replace('1111', '8', 1)
         if '8888' in s:
             s = s.replace('8888', '11', 1)
     print(s)
+
 
 def z14():
     x = 3 * 16 ** 2018 - 2 * 8 ** 1024 - 3 * 4 ** 1100 - 2 ** 1050 - 2022
@@ -53,6 +71,7 @@ def z14():
         x //= 4  # убираем разряд числа в 4-й системе сч.
     print(k)
 
+
 def z15():
     for A in range(1, 70):
         OK = 1
@@ -61,8 +80,19 @@ def z15():
         if OK:
             print(A)
 
+    ''''''
+    for A in range(10000):
+        B = True
+        for x in range(100000):
+            if ((x & 51 == 0) or (x & 41 != 0) or (x & (63 - A) == 0)) == 0:
+                B = False
+        if B:
+            print(63 - A)
+            break
+
 def z16():
     '''Все похожие на эти'''
+
     # Сама функция
     def F(n):
         if n == 1: return 1
@@ -87,14 +117,16 @@ def z16():
             k = k + 1
 
     print(k)
+
+
 def z17():
     with open('17.txt') as f:
         n = [int(x) for x in f]
     mn = min(x for x in n if x % 21 == 0)
     sums = []
     for a, b in zip(n, n[1:]):
-        if a % mn == 0 or b% mn == 0:
-            sums.append(a+b)
+        if a % mn == 0 or b % mn == 0:
+            sums.append(a + b)
     print((len(sums), max(sums)))
 
 
@@ -118,20 +150,89 @@ def z22():
             break
 
 
+def z23_0():
+    def f(n, finish):
+        if n == finish:
+            return 1
+        if n > finish or n == 10 and n == 21:
+            return 0
+        return f(n + 1, finish) + f(n * 2, finish)
+
+
+    print((f(1, 10) * f(10, 21) * f(21,30)))
+
 def z24():
     f = open('z24.txt')
     n = f.read()
     n = n.replace('AB', 'x')
     n = n.replace('AC', 'x')
-    k=0
-    m=0
+    k = 0
+    m = 0
     for i in range(len(n)):
-        if n[i]=='x':
-            k+=1
-            m = max(m,k)
+        if n[i] == 'x':
+            k += 1
+            m = max(m, k)
         else:
-            k=0
+            k = 0
     print(m)
+
+def z24_1():
+    '''Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+    Определите максимальное количество идущих подряд символов, среди которых каждые два соседних различны.
+    Для выполнения этого задания следует написать программу. Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.
+'''
+    f = open('24_demo.txt').readline()
+    k = 1
+    m = 0
+    for i in range(1, len(f)):
+        if f[i] != f[i - 1]:
+            k += 1
+        else:
+            m = max(m, k)
+            k = 1
+    m = max(m, k)
+    print(m)
+
+def z24_3():
+    '''Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+    Определите длину самой длинной последовательности, состоящей из символов X. Хотя бы один символ X находится в последовательности.
+    Для выполнения этого задания следует написать программу. Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.'''
+    print(max(map(len, open('24_demo.txt').readline().replace('Z', ' ').replace('Y', ' ').split())))
+
+
+def z24_4():
+    '''Текстовый файл состоит не более чем из 106 символов X, Y и Z.
+     Определите максимальную длину цепочки вида XYZXYZXYZ... (составленной из фрагментов XYZ, последний фрагмент может быть неполным).
+    Для выполнения этого задания следует написать программу. Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.'''
+
+    f = open('24.txt').readline()
+    k = m = 0
+    for i in range(len(f)):
+        if (f[i] == 'X' and k % 3 == 0) or (f[i] == 'Y' and k % 3 == 1) or (f[i] == 'Z' and k % 3 == 2):
+            k += 1
+            m = max(m, k)
+        elif f[i] == 'X':
+            k = 1
+        else:
+            k = 0
+    print(m)
+
+def z24_5():
+    '''Текстовый файл содержит строки различной длины. Общий объём файла не превышает 1 Мбайт.
+     Строки содержат только заглавные буквы латинского алфавита (ABC…Z). Определите количество строк, в которых буква E встречается чаще, чем буква A.
+    Для выполнения этого задания следует написать программу. Ниже приведён файл, который необходимо обработать с помощью данного алгоритма.'''
+
+    f = open('24.txt')
+    a = 0
+    for string in f:
+        if (string.count('A') < string.count('E')):
+            a += 1
+    print(a)
+
+
+def z24_6():
+    ''''''
+
 
 def z25_0():
     '''Назовём маской числа последовательность цифр, в которой также могут
@@ -148,9 +249,10 @@ def z25_0():
 '''
     for a in range(10):
         for b in range(10):
-            x =  int(f'12345{a}6{b}8')
+            x = int(f'12345{a}6{b}8')
             if x % 17 == 0:
-                print(x,x//17)
+                print(x, x // 17)
+
 
 def z25_2():
     '''На делители'''
@@ -168,6 +270,7 @@ def z25_2():
             divs.sort()
             print(divs)
 
+
 def z25_3():
     '''Задание на четные делители'''
     divCount = 4  # нужное количество делителей
@@ -181,6 +284,7 @@ def z25_3():
             divs.sort()
             divs.reverse()
             print(divs)
+
 
 def z25_4():
     '''Напишите программу, которая ищет среди целых чисел, принадлежащих числовому отрезку [394441; 394505],
@@ -196,6 +300,7 @@ def z25_4():
     divsmax.reverse()
     print(maxim, divsmax[0], divsmax[1])
 
+
 def z25_5():
     '''Напишите программу, которая ищет среди целых чисел, принадлежащих числовому отрезку [3532000; 3532160], простые числа.
 Выведите все найденные простые числа в порядке убывания, слева от каждого числа выведите его номер по порядку.'''
@@ -210,7 +315,8 @@ def z25_5():
                 break
         if flag == True:  # число простое
             count += 1
-            print(count,cn, n)
+            print(count, cn, n)
+
 
 def z25_6():
     '''Напишите программу, которая ищет среди целых чисел, принадлежащих числовому отрезку [210235;210300],
@@ -226,10 +332,10 @@ def z25_6():
         if (len(dividers)) == 4:
             result.append(dividers)
 
-    print(result) # Можно просто так
+    print(result)  # Можно просто так
 
-    for array in result:#
-        print(f"{array[0]} {array[1]} {array[2]} {array[3]}")# Можно так, более удобно вызов через ячейку массива,
+    for array in result:  #
+        print(f"{array[0]} {array[1]} {array[2]} {array[3]}")  # Можно так, более удобно вызов через ячейку массива,
         # если нужно больше делителей array нужно дописывать(МАССИВ НАЧИНАЕТСЯ С 0!!!)
 
 
@@ -240,17 +346,18 @@ def z25_7():
        В ответе перечислите найденные числа в порядке возрастания.'''
 
     for number in range(1000000, 2000001):
-        d = int(number**0.5) + 1
-        if d*d >1:
-            d-=1
-        cnt=0
+        d = int(number ** 0.5) + 1
+        if d * d > 1:
+            d -= 1
+        cnt = 0
 
-        while d>1 and (number//d) - d <=100 and cnt<3:
+        while d > 1 and (number // d) - d <= 100 and cnt < 3:
             if number % d == 0:
                 cnt += 1
-            d -=1
+            d -= 1
         if cnt == 3:
             print(number)
+
 
 def z25_8():
     '''Найдите все натуральные числа N, принадлежащие отрезку [200000000;400000000],
@@ -260,17 +367,17 @@ def z25_8():
     answer = []
     arr2 = [0] * 30
     arr3 = [0] * 20
-    arr2[0] =1
-    arr3[0]=3
+    arr2[0] = 1
+    arr3[0] = 3
 
-    for i in range(0,29):
-        arr2[i+1] = arr2[i] *2 *2
-    for i in range(0,19):
-        arr3[i +1] = arr3[i] *3*3
+    for i in range(0, 29):
+        arr2[i + 1] = arr2[i] * 2 * 2
+    for i in range(0, 19):
+        arr3[i + 1] = arr3[i] * 3 * 3
 
     for a in arr2:
         for b in arr3:
-            result = a*b
+            result = a * b
             if result >= 200000000 and result <= 400000000:
                 answer.append(result)
     answer.sort()
@@ -279,4 +386,5 @@ def z25_8():
 
 
 if __name__ == '__main__':
-    z25_8()
+
+
